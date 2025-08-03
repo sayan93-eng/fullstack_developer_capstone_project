@@ -31,7 +31,9 @@ const Dealer = () => {
     const retobj = await res.json();
     
     if(retobj.status === 200) {
-      setDealer(retobj.dealer)
+      let dealerobjs = Array.isArray(retobj.dealer) ? retobj.dealer : [retobj.dealer];
+      if(dealerobjs.length > 0)
+        setDealer(dealerobjs[0]);
     }
   }
 
@@ -71,7 +73,7 @@ return(
       <Header/>
       <div style={{marginTop:"10px"}}>
       <h1 style={{color:"grey"}}>{dealer.full_name}{postReview}</h1>
-      <h4  style={{color:"grey"}}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
+      <h4  style={{color:"grey"}}>{dealer.city},{dealer.address}, Zip - {dealer.zip}, {dealer.state} </h4>
       </div>
       <div class="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
